@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1027134388053",
+    "project_id": "edwom-project",
+    "storage_bucket": "edwom-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027134388053:android:c1182d44d26628657fe1dc",
+        "android_client_info": {
+          "package_name": "com.example.edwom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027134388053-2qfe64cpim6abfsl3nd1136fhk6rohb7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0u0wUd4U-pcsTdIWbjDW8gYiBzeNXLCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027134388053-2qfe64cpim6abfsl3nd1136fhk6rohb7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
