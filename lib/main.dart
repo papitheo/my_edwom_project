@@ -27,6 +27,7 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
+        
         buttonTheme: const ButtonThemeData(
           shape: StadiumBorder(),
         ),
