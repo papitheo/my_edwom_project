@@ -3,10 +3,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'forgot_password_page.dart';
+
+// ignore: use_key_in_widget_constructors
 class SignInPage extends ConsumerWidget {
-
-
   final _formKey = GlobalKey<FormState>();
+
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,9 +51,10 @@ class SignInPage extends ConsumerWidget {
                           height: 10,
                         ),
                         TextFormField(
+                          
                           validator: (value) =>
                               authViewProvider.emailValidator(value!),
-                          onChanged: (value) => authViewProvider.email = value,
+                          onChanged: (value) => authViewProvider.email = value.trim(),
                           keyboardType: TextInputType.emailAddress,
                           cursorColor: const Color(0xFF5ED5A8),
                           decoration: InputDecoration(
@@ -78,7 +82,7 @@ class SignInPage extends ConsumerWidget {
                         ),
                         const Text(
                           "Password",
-                          style: TextStyle(fontSize: 15),
+                          style: TextStyle(fontSize: 15, color: Colors.white),
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
@@ -123,10 +127,23 @@ class SignInPage extends ConsumerWidget {
                         const SizedBox(
                           height: 30,
                         ),
-                        const Text(
-                          "Forgot Password?",
-                          style:
-                              TextStyle(color: Color(0xFF5ED5A8), fontSize: 15),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                   const ForgotPasswordPage(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Forgot Password",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Color(0xFF5ED5A8),
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 30,
@@ -142,8 +159,8 @@ class SignInPage extends ConsumerWidget {
                                           try {
                                             await authViewProvider.logIn();
                                             Navigator.pushNamed(
-                                              context, '/authWidget',
-                                            
+                                              context,
+                                              '/authWidget',
                                             );
                                             // Navigator.pushReplacementNamed(
                                             //     context, Root.route);

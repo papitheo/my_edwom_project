@@ -205,85 +205,14 @@ class SignUpPage extends ConsumerWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 5.0),
-                        child: Center(
-                          child: Text(
-                            "Or Sign Up With",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                      ),
                       const SizedBox(
                         height: 30,
                       ),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFF1B232A),
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                        color: const Color(0xFF5ED5A8))),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  child: Row(
-                                    children: [
-                                      Image.asset(
-                                        "assets/logos/google.png",
-                                        fit: BoxFit.cover,
-                                      ),
-                                      const SizedBox(
-                                        width: 25,
-                                      ),
-                                      const Text(
-                                        "Google",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 18),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
+                          children: const [
+                            SizedBox(
                               width: 10,
-                            ),
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF1B232A),
-                                  border: Border.all(
-                                    color: const Color(0xFF5ED5A8),
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                height: 50,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 20),
-                                  child: Row(
-                                    children: [
-                                      Image.asset(
-                                        "assets/logos/facebook.png",
-                                        fit: BoxFit.cover,
-                                      ),
-                                      const SizedBox(
-                                        width: 25,
-                                      ),
-                                      const Text(
-                                        "Facebook",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 18),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
                             ),
                           ]),
                       const SizedBox(

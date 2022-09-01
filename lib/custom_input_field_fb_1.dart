@@ -51,7 +51,7 @@ class CustomInputFieldFb1 extends StatelessWidget {
           focusedBorder:  OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
             borderSide:const BorderSide(
-              color: Color(0xFF5ED5A8),
+              color: Color(0xff033323),
               width: 2.0,
             ),
           ),

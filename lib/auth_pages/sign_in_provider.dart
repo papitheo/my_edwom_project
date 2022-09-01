@@ -16,6 +16,7 @@ class AuthViewModelProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
   String _password = " ";
   String get password => _password;
   set password(String password) {

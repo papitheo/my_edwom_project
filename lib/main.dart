@@ -26,14 +26,26 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+         appBarTheme: AppBarTheme(
+          toolbarTextStyle: Theme.of(context).textTheme.apply(
+                bodyColor: const Color(0xff22215B),
+                displayColor: const Color(0xff22215B),
+              ).bodyText2, titleTextStyle: Theme.of(context).textTheme.apply(
+                bodyColor: const Color(0xff22215B),
+                displayColor: const Color(0xff22215B),
+              ).headline6,
+        ),
+        //  textTheme: Theme.of(context).textTheme.apply(
+        //       bodyColor:  Colors.white,
+        //       displayColor:  Colors.white,
+        //     ),
         useMaterial3: true,
-        
         buttonTheme: const ButtonThemeData(
           shape: StadiumBorder(),
+          
         ),
         brightness: Brightness.dark,
       ),
-
       routes: {
         "/": (context) => SignInPage(),
         "/adminHomePage": (context) => const AdminHome(),

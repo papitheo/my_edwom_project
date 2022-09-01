@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:edwom/custom_input_field_fb_1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../product.dart';
 import '../../providers.dart';
+
+// Create an image provider with riverpod
+final addImageProvider = StateProvider<XFile?>((_) => null);
 
 class AdminAddProductPage extends ConsumerStatefulWidget {
   const AdminAddProductPage({Key? key}) : super(key: key);
@@ -37,9 +43,12 @@ class _AdminAddProductPageState extends ConsumerState<AdminAddProductPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF5ED5A8),
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
         title: const Center(
-          child: Text("Add Products"),
+          child: Center(
+            child: Text("Add Products"),
+          ),
         ),
       ),
       body: Padding(
@@ -67,15 +76,51 @@ class _AdminAddProductPageState extends ConsumerState<AdminAddProductPage> {
               hintText: "Price",
               labelText: "Price",
             ),
+            const SizedBox(
+              height: 8,
+            ),
+            Consumer(
+              builder: (context, watch, child) {
+                final image = ref.watch(addImageProvider);
+                return image == null
+                    ? const Text("No image selected")
+                    : Image.file(
+                        File(image.path),
+                        height: 200,
+                        width: 600,
+                      );
+              },
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: MaterialButton(
+                    color: const Color(0xff033323),
+                    onPressed: () async {
+                      final image = await ImagePicker().pickImage(
+                        source: ImageSource.gallery,
+                      );
+                      if (image != null) {
+                        ref.watch(addImageProvider.state).state = image;
+                      }
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: Text("Upload Image"),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             const Spacer(),
             Row(
               children: [
                 Expanded(
                   child: MaterialButton(
-                    color: const Color(0xFF5ED5A8),
+                    color: const Color(0xff033323),
                     onPressed: () => _addProduct(),
-                    child:const  Padding(
-                      padding:  EdgeInsets.all(15.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(15.0),
                       child: Text("Add Product"),
                     ),
                   ),
