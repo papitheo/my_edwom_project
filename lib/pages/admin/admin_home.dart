@@ -1,8 +1,10 @@
 import 'package:edwom/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../product.dart';
+import '../../widgets/product_list_tile.dart';
 import 'admin_add_product.dart';
 
 class AdminHome extends ConsumerWidget {
@@ -13,6 +15,7 @@ class AdminHome extends ConsumerWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFE7E3E0),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         actions: [
@@ -32,41 +35,42 @@ class AdminHome extends ConsumerWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active &&
               snapshot.data != null) {
+            if (snapshot.data!.isEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      "No Products added",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Lottie.asset(
+                      "assets/anim/empty.json",
+                      width: 200,
+                      repeat: true,
+                    ),
+                  ],
+                ),
+              );
+            }
             return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                final product = snapshot.data![index];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: ListTile(
-                    tileColor: const Color(0xff033323),
-                    title: Text(
-                      product.name,
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    leading: const CircleAvatar(
-                      backgroundColor: Colors.grey,
-                    ),
-                    subtitle: Text(
-                      product.description,
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    trailing: IconButton(
-                        onPressed: () => ref
-                            .read(databaseProvider)!
-                            .deleteProduct(product.id!),
-                        icon: const Icon(
-                          Icons.delete_outline,
-                          color: Colors.grey,
-                        )),
-                  ),
-                );
-              },
-            );
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  final product = snapshot.data![index];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.5),
+                    child: ProductListTile(
+                        product: product,
+                        onDelete: () async {
+                          await ref
+                              .read(databaseProvider)!
+                              .deleteProduct(product.id!);
+                        }),
+                  );
+                });
           }
           return const Center(
             child: CircularProgressIndicator(
@@ -76,7 +80,7 @@ class AdminHome extends ConsumerWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xff033323),
+        backgroundColor: Colors.blue[400],
         child: const Icon(Icons.add, color: Colors.white),
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(builder: (_) => const AdminAddProductPage()),
