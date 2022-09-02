@@ -26,14 +26,21 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-         appBarTheme: AppBarTheme(
-          toolbarTextStyle: Theme.of(context).textTheme.apply(
+        appBarTheme: AppBarTheme(
+          toolbarTextStyle: Theme.of(context)
+              .textTheme
+              .apply(
                 bodyColor: const Color(0xff22215B),
                 displayColor: const Color(0xff22215B),
-              ).bodyText2, titleTextStyle: Theme.of(context).textTheme.apply(
+              )
+              .bodyText2,
+          titleTextStyle: Theme.of(context)
+              .textTheme
+              .apply(
                 bodyColor: const Color(0xff22215B),
                 displayColor: const Color(0xff22215B),
-              ).headline6,
+              )
+              .headline6,
         ),
         //  textTheme: Theme.of(context).textTheme.apply(
         //       bodyColor:  Colors.white,
@@ -42,7 +49,6 @@ class MyApp extends ConsumerWidget {
         useMaterial3: true,
         buttonTheme: const ButtonThemeData(
           shape: StadiumBorder(),
-          
         ),
         brightness: Brightness.dark,
       ),
@@ -51,11 +57,12 @@ class MyApp extends ConsumerWidget {
         "/adminHomePage": (context) => const AdminHome(),
         "/signUpPage": (context) => SignUpPage(),
         "/signInPage": (context) => SignInPage(),
-        "/homePage": (context) => const HomePage(),
+        "/homePage": (context) => HomePage(),
         "/authWidget": (context) => AuthWidget(
-            signInPage: (context) => SignInPage(),
-            signUpPage: (context) => SignUpPage(),
-            adminHomePageBuilder: (context) => const AdminHome())
+              signInPage: (context) => SignInPage(),
+              signUpPage: (context) => SignUpPage(),
+              adminHomePageBuilder: (context) => const AdminHome(),
+            )
       },
     );
   }

@@ -23,7 +23,7 @@ class AuthWidget extends ConsumerWidget {
         data: (user) => user != null
             ? user.email == adminEmail
                 ? adminHomePageBuilder(context)
-                : const HomePage()
+                :  HomePage()
             : signUpPage(context),
         error: (_, __) => const Scaffold(
                 body: Center(
