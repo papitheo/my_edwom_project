@@ -24,6 +24,7 @@ class _AdminAddProductPageState extends ConsumerState<AdminAddProductPage> {
   final titleTextEditingController = TextEditingController();
   final priceEditingController = TextEditingController();
   final descriptionEditingController = TextEditingController();
+  final farmEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +48,7 @@ class _AdminAddProductPageState extends ConsumerState<AdminAddProductPage> {
         Product(
           name: titleTextEditingController.text,
           description: descriptionEditingController.text,
+          farm: farmEditingController.text,
           price: double.parse(priceEditingController.text),
           imageUrl: imageUrl,
         ),
@@ -95,6 +97,12 @@ class _AdminAddProductPageState extends ConsumerState<AdminAddProductPage> {
               CustomInputFieldFb1(
                 inputController: priceEditingController,
                 hintText: "Price",
+                labelText: "Price",
+              ),
+              const SizedBox(height:15),
+               CustomInputFieldFb1(
+                inputController: farmEditingController,
+                hintText: "Name Of Farm/Company",
                 labelText: "Price",
               ),
               const SizedBox(

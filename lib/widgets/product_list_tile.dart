@@ -70,7 +70,7 @@ class ProductListTile extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         )),
-                    Text(product.description,
+                    Text(product.farm,
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         style: const TextStyle(

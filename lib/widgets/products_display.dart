@@ -29,7 +29,11 @@ class ProductDisplay extends ConsumerWidget {
                 final product = snapshot.data![index];
                 return GestureDetector(
                   onTap: () {},
-                  child: Container(
+                  child: Padding(
+                    padding:const  EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -37,32 +41,38 @@ class ProductDisplay extends ConsumerWidget {
                           child: Hero(
                             tag: product.name,
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: Image.network(product.imageUrl),
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                color: Colors.white,
+                                child: Image.network(
+                                  product.imageUrl,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 1,
                         ),
                         Text(
                           product.name,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
+                            color: Colors.black,
                           ),
                         ),
                         const SizedBox(
-                          height: 5,
+                          height: 1,
                         ),
                         Text(
                           "\$" + product.price.toString(),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,
+                            fontSize: 15,
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

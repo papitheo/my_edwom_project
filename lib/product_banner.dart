@@ -32,7 +32,7 @@ class ProductBanner extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                Text("Cool shoes",
+                Text("Fresh Tomato",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

@@ -62,7 +62,9 @@ class HomePage extends ConsumerWidget {
                 color: Colors.black,
               ),
             ),
-             Flexible(child: ProductDisplay()),
+            Flexible(
+              child: ProductDisplay(),
+            ),
           ],
         ),
       ),
