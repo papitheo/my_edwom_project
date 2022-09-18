@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'services/firestore_services.dart';
+import 'view_model/cart_view_model.dart';
 
 final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
@@ -41,4 +42,8 @@ final databaseProvider = Provider<FirestoreService?>((ref) {
     return FirestoreService(uid: uid);
   }
   return null;
+});
+
+final bagProvider = ChangeNotifierProvider<BagViewModel>((ref) {
+  return BagViewModel();
 });

@@ -1,3 +1,4 @@
+import 'package:edwom/pages/user/user_cart.dart';
 import 'package:edwom/product_banner.dart';
 import 'package:edwom/providers.dart';
 import 'package:edwom/widgets/products_display.dart';
@@ -22,11 +23,20 @@ class HomePage extends ConsumerWidget {
             Row(
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                   
+                  },
                   icon: const Icon(Icons.menu),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                     Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const UserCart(),
+                      ),
+                    );
+                  },
                   icon: const Icon(
                     Icons.shopping_cart,
                   ),

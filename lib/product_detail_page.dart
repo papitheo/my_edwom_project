@@ -1,4 +1,7 @@
+import 'package:edwom/pages/user/user_cart.dart';
 import 'package:edwom/product.dart';
+import 'package:edwom/providers.dart';
+import 'package:edwom/utils/snackbar.dart';
 import 'package:edwom/widgets/user_top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -59,10 +62,7 @@ class ProductDetail extends ConsumerWidget {
                 ),
                 Text(
                   product.farm,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      
-                      fontSize: 18),
+                  style: const TextStyle(color: Colors.black, fontSize: 18),
                 )
               ],
             ),
@@ -112,7 +112,15 @@ class ProductDetail extends ConsumerWidget {
               height: 25,
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                ref.read(bagProvider).addProduct(product);
+               
+                openIconSnackBar(
+                  context,
+                  "Product added successfully",
+                  const Icon(Icons.check, color: Colors.white),
+                );
+              },
               child: Container(
                 width: double.infinity,
                 height: 50,
