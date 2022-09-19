@@ -59,9 +59,9 @@ class MyApp extends ConsumerWidget {
         "/signInPage": (context) => SignInPage(),
         "/homePage": (context) => HomePage(),
         "/authWidget": (context) => AuthWidget(
-              signInPage: (context) => SignInPage(),
-              signUpPage: (context) => SignUpPage(),
-              adminHomePageBuilder: (context) => const AdminHome(),
+              signedInBuilder: (context) => SignInPage(),
+              nonSignedInBuilder: (context) => SignUpPage(),
+              adminSignedInBuilder: (context) => const AdminHome(),
             )
       },
     );

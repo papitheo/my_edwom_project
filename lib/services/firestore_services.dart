@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edwom/product.dart';
 
+import '../models/user_data.dart';
+
 class FirestoreService {
   final String uid;
   FirestoreService({required this.uid});
@@ -11,11 +13,7 @@ class FirestoreService {
     Product product,
   ) async {
     final docId = firestore.collection("products").doc().id;
-    await firestore
-        .collection("products")
-        .doc(docId)
-        .set(product.toMap(docId));
-        
+    await firestore.collection("products").doc(docId).set(product.toMap(docId));
   }
 
   Stream<List<Product>> getProducts() {
@@ -30,5 +28,16 @@ class FirestoreService {
 
   Future<void> deleteProduct(String id) async {
     return await firestore.collection("products").doc(id).delete();
+  }
+
+  Future<void> addData(UserData user) async {
+    await firestore.collection("users").doc(user.uid).set(
+          user.toMap(),
+        );
+  }
+
+  Future<UserData?> getUser(String uid) async {
+    final doc = await firestore.collection("users").doc(uid).get();
+    return doc.exists ? UserData.fromMap(doc.data()!) : null;
   }
 }
