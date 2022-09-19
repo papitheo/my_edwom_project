@@ -40,7 +40,7 @@ class ProductBanner extends StatelessWidget {
               ],
             ),
             Image.network(
-              "https://firebasestorage.googleapis.com/v0/b/edwom-project.appspot.com/o/D8ZZDb2DNHXumootDJSLvFzd5Hr1%2F2022-09-02T15%3A34%3A45.150297?alt=media&token=14811933-37bf-4d5c-9a55-f64990b11860",
+              "https://firebasestorage.googleapis.com/v0/b/edwom-project.appspot.com/o/D8ZZDb2DNHXumootDJSLvFzd5Hr1%2F2022-09-18T19%3A27%3A03.115264?alt=media&token=f615b17b-ad91-42f9-b240-8a23566d702452",
               width: 125,
             )
           ],

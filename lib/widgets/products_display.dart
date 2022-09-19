@@ -19,6 +19,7 @@ class ProductDisplay extends ConsumerWidget {
               return const EmptyWidget();
             }
           }
+
           return SizedBox(
             height: MediaQuery.of(context).size.height,
             child: GridView.builder(
@@ -31,12 +32,13 @@ class ProductDisplay extends ConsumerWidget {
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductDetail(
-                            product: product,
-                          ),
-                        ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetail(
+                          product: product,
+                        ),
+                      ),
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

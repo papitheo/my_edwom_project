@@ -9,8 +9,6 @@ import 'forgot_password_page.dart';
 class SignInPage extends ConsumerWidget {
   final _formKey = GlobalKey<FormState>();
 
-
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authViewProvider = ref.watch(signInProvider);
@@ -51,10 +49,10 @@ class SignInPage extends ConsumerWidget {
                           height: 10,
                         ),
                         TextFormField(
-                          
                           validator: (value) =>
                               authViewProvider.emailValidator(value!),
-                          onChanged: (value) => authViewProvider.email = value.trim(),
+                          onChanged: (value) =>
+                              authViewProvider.email = value.trim(),
                           keyboardType: TextInputType.emailAddress,
                           cursorColor: const Color(0xFF5ED5A8),
                           decoration: InputDecoration(
@@ -132,7 +130,7 @@ class SignInPage extends ConsumerWidget {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) =>
-                                   const ForgotPasswordPage(),
+                                    const ForgotPasswordPage(),
                               ),
                             );
                           },
@@ -227,11 +225,13 @@ class SignInPage extends ConsumerWidget {
       ),
       if (authViewProvider.loading)
         const Material(
-          color: Color(0xFF5ED5A8),
+          color: Colors.white,
           child: Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Colors.green,
+            ),
           ),
-        )
+        ),
     ]);
   }
 }
