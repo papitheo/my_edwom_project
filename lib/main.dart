@@ -4,6 +4,7 @@ import 'package:edwom/widgets/auth_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'auth_pages/sign_in_page.dart';
 import 'auth_pages/sign_up_page.dart';
@@ -14,8 +15,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  runApp(const ProviderScope(child: MyApp()));
+  Stripe.publishableKey =
+      "pk_test_51Lk3rVHOJ5xn0GImXsxxTQ5l90lWXHXAynRUj3s9BMMX22Yb7pti8UtVnQ1GtcrrkjHU9rvNxvGIGRsSeBTdFAxC00v1wOkvCs";
+  runApp(const ProviderScope(
+    child: MyApp(), // Wrap your app
+  ));
 }
 
 class MyApp extends ConsumerWidget {

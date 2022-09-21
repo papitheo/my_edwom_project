@@ -1,4 +1,5 @@
 import 'package:edwom/auth_pages/auth_services.dart';
+import 'package:edwom/services/payment_services.dart';
 import 'package:edwom/services/storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,6 +20,10 @@ final storageProvider = Provider<StorageService?>((ref) {
   return null;
 });
 
+
+final paymentProvider = Provider<PaymentService>((ref) {
+  return PaymentService();
+});
 
 
 final authStateChangesProvider = StreamProvider<User?>((ref) {

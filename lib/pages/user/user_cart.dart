@@ -1,8 +1,6 @@
-import 'package:edwom/view_model/cart_view_model.dart';
 import 'package:edwom/widgets/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../providers.dart';
 
 class UserCart extends ConsumerWidget {
@@ -88,7 +86,28 @@ class UserCart extends ConsumerWidget {
                   ),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        final payment = ref.read(paymentProvider);
+                        final user = ref.read(authStateChangesProvider);
+                        final userBag = ref.watch(bagProvider);
+                        final result = await payment.initPaymentSheet(
+                            user.value!, userBag.totalPrice);
+                        if (!result.isError) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Payment Completed!"),
+                            ),
+                          );
+                          userBag.clearBag();
+                          Navigator.pop(context);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(result.message),
+                            ),
+                          );
+                        }
+                      },
                       child: const Text("Check Out"),
                     ),
                   ),

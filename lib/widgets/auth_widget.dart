@@ -52,10 +52,10 @@ class AuthWidget extends ConsumerWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             final potentialUser = snapshot.data;
             if (potentialUser == null) {
-              database.addData(UserData(
+              database.addUser(UserData(
                   email: user.email != null ? user.email! : "",
                   uid: user
-                      .uid)); // no need to await as you don't depend on that
+                      .uid),); // no need to await as you don't depend on that
             }
             if (user.email == adminEmail) {
               return adminSignedInBuilder(context);
