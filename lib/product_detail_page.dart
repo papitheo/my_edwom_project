@@ -37,14 +37,11 @@ class ProductDetail extends ConsumerWidget {
             const SizedBox(
               height: 15,
             ),
-            Hero(
-              tag: product.name,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image.network(
-                  product.imageUrl,
-                  fit: BoxFit.cover,
-                ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Image.network(
+                product.imageUrl,
+                fit: BoxFit.cover,
               ),
             ),
             const SizedBox(
@@ -114,7 +111,7 @@ class ProductDetail extends ConsumerWidget {
             GestureDetector(
               onTap: () {
                 ref.read(bagProvider).addProduct(product);
-               
+
                 openIconSnackBar(
                   context,
                   "Product added successfully",
