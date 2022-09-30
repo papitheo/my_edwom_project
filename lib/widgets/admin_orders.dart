@@ -1,36 +1,21 @@
+import 'package:edwom/models/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../models/order.dart';
-import '../../providers.dart';
-import '../../widgets/empty_widget.dart';
+import '../models/order.dart';
+import '../providers.dart';
+import 'empty_widget.dart';
 
-class UserOrders extends ConsumerWidget {
-  const UserOrders({Key? key}) : super(key: key);
+class AdminOrders extends ConsumerWidget {
+  const AdminOrders({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     return Scaffold(
-      backgroundColor: const Color(
-        0xFFE7E3E0,
-      ),
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(
-              context,
-            );
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
-        iconTheme: const IconThemeData(color: Colors.black),
-        automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xFFE7E3E0),
-        title: const Center(
-          child: Text('My Orders'),
-        ),
-      ),
-      body: StreamBuilder<List<Order>>(
+      backgroundColor:const Color(0xFFE7E3E0),
+      appBar: AppBar(),
+       body: StreamBuilder<List<Order>>(
           stream: ref.read(databaseProvider)!.getOrders(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active &&
@@ -73,6 +58,7 @@ class UserOrders extends ConsumerWidget {
             }
             return const Center(child: CircularProgressIndicator());
           }),
+      
     );
   }
 }

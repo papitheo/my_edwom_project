@@ -7,49 +7,66 @@ import 'package:edwom/widgets/products_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
 class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: const Color(0xFFE7E3E0),
       appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              ref.read(firebaseAuthProvider).signOut();
-            },
-            icon: const Icon(
-              Icons.logout_outlined,
-            ),
+        leading: IconButton(
+          onPressed: () {
+            ref.read(firebaseAuthProvider).signOut();
+          },
+          icon: const Icon(
+            Icons.logout_outlined,
           ),
-          actions: [
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () =>
-                      showSearch(context: context, delegate: ProductsSearch()),
-                  icon: const Icon(Icons.search),
+        ),
+        actions: [
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const UserOrders(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.menu),
+              ),
+              IconButton(
+                onPressed: () => showSearch(
+                  context: context,
+                  delegate: ProductsSearch(),
                 ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const UserCart(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.shopping_cart,
-                  ),
-                )
-              ],
-            )
-          ],
-          backgroundColor: const Color(0xFFE7E3E0),
-          automaticallyImplyLeading: false,
-          iconTheme: const IconThemeData(
-            color: Colors.black,
-          )),
+                icon: const Icon(
+                  Icons.search,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const UserCart(),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.shopping_cart,
+                ),
+              )
+            ],
+          )
+        ],
+        backgroundColor: const Color(0xFFE7E3E0),
+        automaticallyImplyLeading: false,
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

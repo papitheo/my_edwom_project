@@ -4,6 +4,7 @@ import '../product.dart';
 
 class Order {
   String confirmationId;
+
   Timestamp? timestamp;
   List<Product> products;
 

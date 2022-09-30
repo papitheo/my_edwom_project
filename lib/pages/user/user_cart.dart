@@ -93,6 +93,8 @@ class UserCart extends ConsumerWidget {
                         final result = await payment.initPaymentSheet(
                             user.value!, userBag.totalPrice);
                         if (!result.isError) {
+                          ref.read(databaseProvider)!.saveOrder(
+                              result.payIntentId!, userBag.productsBag);
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text("Payment Completed!"),

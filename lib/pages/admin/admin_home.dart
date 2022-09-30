@@ -1,9 +1,11 @@
+import 'package:edwom/pages/user/user_orders.dart';
 import 'package:edwom/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../product.dart';
+import '../../widgets/admin_orders.dart';
 import '../../widgets/product_list_tile.dart';
 import 'admin_add_product.dart';
 
@@ -18,6 +20,17 @@ class AdminHome extends ConsumerWidget {
         automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>const  AdminOrders(),
+              ),
+            );
+          },
+          icon: const Icon(Icons.menu),
+        ),
         actions: [
           IconButton(
             onPressed: () {
