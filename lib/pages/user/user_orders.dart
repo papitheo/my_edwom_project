@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,49 +33,67 @@ class UserOrders extends ConsumerWidget {
           child: Text('My Orders'),
         ),
       ),
-      body: StreamBuilder<List<Order>>(
-          stream: ref.read(databaseProvider)!.getOrders(),
+      body: StreamBuilder<QuerySnapshot<Order>>(
+          stream: ref
+              .read(databaseProvider)!
+              .getSpecificeOrders(FirebaseAuth.instance.currentUser?.uid ?? ''),
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.active &&
-                snapshot.data != null) {
-              if (snapshot.data!.isEmpty) {
-                return const EmptyWidget();
-              }
-              return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    final order = snapshot.data![index];
-
-                    final total = order.products
-                        .map(((e) => e.price))
-                        .reduce((value, element) => value + element);
-
-                    return Padding(
-                        padding: const EdgeInsets.all(8.5),
-                        child: ListTile(
-                          title: Text(
-                            order.products.map((e) => e.name).join(', '),
-                            style: const TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                          subtitle: Text(
-                            order.timestamp!.toDate().toString(),
-                            style: const TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                          trailing: Text(
-                            "\$" + total.toString(),
-                            style: const TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ));
-                  });
+            // return const Center(child: CircularProgressIndicator());
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
             }
-            return const Center(child: CircularProgressIndicator());
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text('Error loading data'),
+              );
+            }
+            if (snapshot.hasData) {
+              if (snapshot.data!.docs.isEmpty) {
+                return const Center(child: Text('You have no orders'));
+              }
+              if (snapshot.data != null) {
+                return _OrderBody(
+                    orders: snapshot.data!.docs.map((e) => e.data()).toList());
+              }
+            }
+            return Container();
           }),
     );
+  }
+}
+
+class _OrderBody extends StatelessWidget {
+  final List<Order> orders;
+
+  const _OrderBody({Key? key, required this.orders}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemCount: orders.length,
+        itemBuilder: (context, index) {
+          return Padding(
+              padding: const EdgeInsets.all(8.5),
+              child: ListTile(
+                title: Text(
+                  orders[index].products.map((e) => e.name).join(', '),
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                subtitle: Text(
+                  orders[index].createdAt.toString(),
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                trailing: Text(
+                  "\$" + orders[index].price.toString(),
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ));
+        });
   }
 }

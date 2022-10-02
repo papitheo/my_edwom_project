@@ -1,4 +1,7 @@
+import 'package:edwom/models/order.dart';
 import 'package:edwom/widgets/empty_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers.dart';
@@ -93,8 +96,15 @@ class UserCart extends ConsumerWidget {
                         final result = await payment.initPaymentSheet(
                             user.value!, userBag.totalPrice);
                         if (!result.isError) {
-                          ref.read(databaseProvider)!.saveOrder(
-                              result.payIntentId!, userBag.productsBag);
+                          ref.read(databaseProvider)!.makeOrder(Order(
+                              id: '',
+                              price: userBag.totalPrice,
+                              createdAt: DateTime.now(),
+                              email: FirebaseAuth.instance.currentUser?.email ??
+                                  '',
+                              products: userBag.productsBag,
+                              uid: FirebaseAuth.instance.currentUser?.uid ??
+                                  ''));
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text("Payment Completed!"),

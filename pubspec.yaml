@@ -43,6 +43,9 @@ dependencies:
     sdk: flutter
   flutter_riverpod: ^1.0.3
   provider: ^6.0.3
+  syncfusion_flutter_pdf: ^20.3.47
+  path_provider: ^2.0.11
+  open_file: ^3.2.1
 
 dev_dependencies:
   flutter_lints: ^1.0.0

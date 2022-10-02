@@ -26,16 +26,41 @@ class FirestoreService {
             }).toList());
   }
 
-  Stream<List<Order>> getOrders() {
-    return firestore
-        .collection("users")
-        .doc(uid)
-        .collection("orders")
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) {
-              final d = doc.data();
-              return Order.fromMap(d);
-            }).toList());
+  // Stream<List<Order>> getOrders() {
+  //   return firestore
+  //       .collection("users")
+  //       .doc(uid)
+  //       .collection("orders")
+  //       .snapshots()
+  //       .map((snapshot) => snapshot.docs.map((doc) {
+  //             final d = doc.data();
+  //             return Order.fromMap(d);
+  //           }).toList());
+  // }
+
+  Future<void> makeOrder(Order order) async {
+    await firestore.collection('Order').add(order.toJson());
+  }
+
+  Stream<QuerySnapshot<Order>> getAllOrders() async* {
+    yield* firestore
+        .collection('Order')
+        .withConverter<Order>(
+            fromFirestore: (snapshot, options) =>
+                Order.fromJson({...snapshot.data() ?? {}, 'id': snapshot.id}),
+            toFirestore: ((value, options) => value.toJson()))
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Order>> getSpecificeOrders(String uid) async* {
+    yield* firestore
+        .collection('Order')
+        .where('uid', isEqualTo: uid)
+        .withConverter<Order>(
+            fromFirestore: (snapshot, options) =>
+                Order.fromJson({...snapshot.data() ?? {}, 'id': snapshot.id}),
+            toFirestore: ((value, options) => value.toJson()))
+        .snapshots();
   }
 
   Future<void> deleteProduct(String id) async {
@@ -59,20 +84,20 @@ class FirestoreService {
     return doc.exists ? UserData.fromMap(doc.data()!) : null;
   }
 
-  Future<void> saveOrder(String confirmationId, List<Product> products) async {
-    // Save the order in the orders collection of the user
-    await firestore.collection("users").doc(uid).collection("orders").add({
-      'confirmationId': confirmationId,
-      'products':
-          products.map((product) => product.toMap(confirmationId)).toList(),
-      'timestamp': FieldValue.serverTimestamp(),
-    });
-    // Save the order on an outer collection for the admin / user depending on your design decision.
-    await firestore.collection("orders").doc(confirmationId).set({
-      'confirmationId': confirmationId,
-      'products':
-          products.map((product) => product.toMap(confirmationId)).toList(),
-      'timestamp': FieldValue.serverTimestamp(),
-    });
-  }
+  // Future<void> saveOrder(String confirmationId, List<Product> products) async {
+  //   // Save the order in the orders collection of the user
+  //   await firestore.collection("users").doc(uid).collection("orders").add({
+  //     'confirmationId': confirmationId,
+  //     'products':
+  //         products.map((product) => product.toMap(confirmationId)).toList(),
+  //     'timestamp': FieldValue.serverTimestamp(),
+  //   });
+  //   // Save the order on an outer collection for the admin / user depending on your design decision.
+  //   await firestore.collection("orders").doc(confirmationId).set({
+  //     'confirmationId': confirmationId,
+  //     'products':
+  //         products.map((product) => product.toMap(confirmationId)).toList(),
+  //     'timestamp': FieldValue.serverTimestamp(),
+  //   });
+  // }
 }
