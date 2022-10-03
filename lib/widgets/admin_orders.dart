@@ -17,7 +17,10 @@ class AdminOrders extends ConsumerWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFE7E3E0),
       appBar: AppBar(
-        actions: [],
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
+        backgroundColor: const Color(0xFFE7E3E0),
       ),
       body: StreamBuilder<QuerySnapshot<Order>>(
           stream: ref.read(databaseProvider)!.getAllOrders(),
@@ -72,15 +75,15 @@ class AdminOrders extends ConsumerWidget {
                     scrollDirection: Axis.horizontal,
                     child: DataTable(
                         columns: const [
-                          DataColumn(label: Text('Email')),
-                          DataColumn(label: Text('Products')),
-                          DataColumn(label: Text('Time')),
+                          DataColumn(label: Text('Email',style: TextStyle(color: Colors.black,),)),
+                          DataColumn(label: Text('Products',style: TextStyle(color: Colors.black,),)),
+                          DataColumn(label: Text('Time',style: TextStyle(color: Colors.black,),)),
                         ],
                         rows: data
                                 ?.map((e) => DataRow(cells: [
-                                      DataCell(Text(e.email ?? '')),
-                                      DataCell(Text(e.products.getStringRepr)),
-                                      DataCell(Text(e.createdAt.toString())),
+                                      DataCell(Text(e.email,style:const TextStyle(color: Colors.black,),)),
+                                      DataCell(Text(e.products.getStringRepr,style:const TextStyle(color: Colors.black,),)),
+                                      DataCell(Text(e.createdAt.toString(),style:const TextStyle(color: Colors.black,),)),
                                     ]))
                                 .toList() ??
                             []),
